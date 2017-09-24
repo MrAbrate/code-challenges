@@ -45,6 +45,12 @@ const pugFiles = [
   },
   {
     source: '/pug/lesson-template.pug',
+    dest: '/public/lesson-typography.html',
+    js: '/js/lessons/lesson-typography.js',
+    text: "Typography"
+  },
+  {
+    source: '/pug/lesson-template.pug',
     dest: '/public/lesson-id-selectors.html',
     js: '/js/lessons/lesson-id-selectors.js',
     text: "ID Selector"

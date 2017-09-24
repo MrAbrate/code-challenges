@@ -196,14 +196,14 @@ code {
 #objectives > li {
 	margin-bottom: 20px;
 	border-top: 2px solid #555;
+	display: flex;
+	align-items: flex-start;
 }
 #objectives > li.passed {
 	border-top: 2px solid green;
 }
 
 .list-number {
-	display: inline-block;
-	vertical-align: top;
 	background: #555;
 	color: white;
 	min-width: 30px;
@@ -219,5 +219,4 @@ code {
 }
 
 .objective-list-item {
-	display: inline-block;
 }
