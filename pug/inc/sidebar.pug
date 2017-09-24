@@ -1,0 +1,11 @@
+.sidebar
+	h1
+		a(href="/") Coda
+	.dropdown
+		a.nav-toggle(href="#") &#9776;
+		.dropdown-content
+			each lesson in lessons
+				if file === lesson
+					a(href=lesson.dest.replace('/public', '')).active= lesson.text
+				else
+					a(href=lesson.dest.replace('/public', ''))= lesson.text

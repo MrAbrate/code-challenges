@@ -1,0 +1,223 @@
+@import url('https://fonts.googleapis.com/css?family=Droid+Sans+Mono|Source+Code+Pro');
+* {
+	box-sizing: border-box;
+}
+body {
+	margin: 0;
+	padding: 0;
+	font-family: 'Droid Sans', sans-serif;
+	color: #444;
+}
+
+code {
+	font-family: 'Source Code Pro', monospace;
+	color: black;
+}
+
+.container {
+}
+
+.sidebar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background: rgba(0, 0, 0, 0.7);
+	color: white;
+	padding: 10px 30px;
+}
+.sidebar h1 {
+	font-size: 2.2rem;
+	margin: 0;
+}
+.sidebar h1 > a {
+	color: white;
+}
+.sidebar a {
+	text-decoration: none;
+}
+
+
+
+.dropdown {
+	position: relative;
+}
+.dropdown-content {
+	display: none;
+	position: absolute;
+	width: 150px;
+	right: 0;
+	background: white;
+	padding: 12px;
+	border: 2px solid #444;
+	top: 100%;
+}
+.dropdown:hover .dropdown-content {
+	display: block;
+}
+.dropdown-content > a {
+	color: #444;
+	display: block;
+	padding: 12px 0;
+	font-size: 1.4rem;
+}
+.dropdown-content a:hover,
+.dropdown-content a.active {
+	text-decoration: underline;
+}
+.nav-toggle {
+	color: white;
+	font-size: 1.4rem;
+	border: 1px solid white;
+	padding: 4px;
+	border-radius: 4px;
+}
+
+
+@media screen and (min-width: 1050px) {
+	.container {
+		display: flex;
+	}
+	.sidebar {
+		max-width: 300px;
+		min-height: 100vh;
+		display: block;
+	}
+	.sidebar h1 {
+		margin: 30px 0;
+	}
+	.nav-toggle {
+		display: none;
+	}
+	.dropdown-content {
+		display: block;
+		position: relative;
+		padding: 0;
+		background: transparent;
+		border: none;
+	}
+	.dropdown-content > a {
+		color: white;
+		padding: 0;
+		margin: 4px 0;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.content {
+	flex: 1;
+	padding: 60px;
+}
+#editor {
+	display: flex;
+	width: 700px;
+	margin: 30px auto;
+	flex-flow: column;
+	border: 2px solid #202020;
+	border-radius: 4px;
+}
+
+#editor button {
+	padding: 10px;
+	background: orange;
+	border: none;
+	font-size: 1.2rem;
+}
+#editor button:hover {
+	background: DarkOrange;
+	cursor: pointer;
+}
+
+.tab-wrapper {
+	display: flex;
+}
+
+.tab {
+	flex: 1;
+	background: orange;
+	color: black;
+	text-align: center;
+	padding: 14px 0;
+	cursor: pointer;
+	border-right: 1px solid #202020;
+}
+
+.tab:last-child {
+	border: none;
+}
+
+.tab.active {
+	background: #202020;
+	color: white;
+	flex: 1.5;
+}
+
+#editor-window,
+#preview-window {
+	width: 100%;
+	height: 400px;
+}
+
+#editor-window {
+	border-top: 8px solid #282822;
+}
+
+#preview-window {
+	display: none;
+}
+
+#preview-window > iframe {
+	width: 100%;
+	height: 100%;
+}
+
+
+
+
+
+
+#objectives {
+	font-size: 20px;
+	list-style: none;
+	padding: 0;
+}
+
+#objectives > li {
+	margin-bottom: 20px;
+	border-top: 2px solid #555;
+}
+#objectives > li.passed {
+	border-top: 2px solid green;
+}
+
+.list-number {
+	display: inline-block;
+	vertical-align: top;
+	background: #555;
+	color: white;
+	min-width: 30px;
+	min-height: 30px;
+	margin-right: 20px;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#objectives > li.passed > .list-number {
+	background: green;
+}
+
+.objective-list-item {
+	display: inline-block;
+}

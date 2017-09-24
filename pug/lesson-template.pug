@@ -1,0 +1,13 @@
+doctype html
+html
+	include inc/head.pug
+	body
+		.container
+			include inc/sidebar.pug
+			.content
+				#editor
+				include inc/scripts.pug
+				script.
+					!{ file.js }
+
+		

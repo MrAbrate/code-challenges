@@ -1,0 +1,17 @@
+.editor
+	.editor-nav
+		.tab.active(aria-controls="js-editor") JS
+		.tab(aria-controls="html-editor") HTML
+		.tab(aria-controls="css-editor") CSS
+		.tab(aria-controls="preview") Preview
+	#js-editor.editor-window.
+		function setup() {
+			createCanvas(200, 200);
+			background(0);
+		}
+	#html-editor.editor-window #{ '<h1>Hello World</h1>' }
+	#css-editor.editor-window.
+		body {
+			color: #444;
+		}
+	#preview.editor-window
