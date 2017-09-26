@@ -1,6 +1,6 @@
 new Objectives([
-	'Add <code>&lt;h1&gt;</code> tags to the text "Quotes"',
-	'Add <code>&lt;p&gt;</code> around each qoute'
+	'Add <code>&lt;h1&gt;</code> tags around the word, "Quotes"',
+	'Add <code>&lt;p&gt;</code> around each quote, including the author\'s name.'
 ]);
 
 editor.setCode('html',

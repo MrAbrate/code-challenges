@@ -9,13 +9,13 @@ function test() {
 	// Quotes wrapped in paragraps?
 	const pElements = document.querySelectorAll('p');
 
-	const quoteOne = pSearch(/secret of getting.*\n*.*-Mark Twain/);
-	const quoteTwo = pSearch(/learned that people.*\n*.*-Maya Angelou/);
-	const quoteThree = pSearch(/fool doth think he is wise.*\n*.*-William Shakespeare/);
+	const quoteOne = pSearch(/secret of getting.*\n*.*Mark Twain/);
+	const quoteTwo = pSearch(/learned that people.*\n*.*Maya Angelou/);
+	const quoteThree = pSearch(/fool doth think he is wise.*\n*.*William Shakespeare/);
 
 	function quotesCorrent() {
 		pElements.length < 3;
-		
+
 		if (quoteOne === -1 || quoteTwo === -1 || quoteThree === -1) {
 			return false;
 		}
