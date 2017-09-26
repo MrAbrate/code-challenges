@@ -47,5 +47,5 @@ editor.setTests(function () {
 		pSelected,
 		fontFamily.includes('Lato, sans-serif'),
 		fontSize === '24px'
-	], origin)
+	], origin);
 });

@@ -1,86 +1,87 @@
 const pug = require('pug');
 const fs = require('fs');
 
-// Compile the source code
-const pugFiles = [
-  {
-    source: '/pug/index.pug',
-    dest: '/public/index.html'
-  },
-  {
-    source: '/pug/lesson-template.pug',
-    dest: '/public/lesson-headings.html',
-    js: '/js/lessons/lesson-headings.js',
-    text: "Headings"
-  },
-  {
-    source: '/pug/lesson-template.pug',
-    dest: '/public/lesson-paragraphs.html',
-    js: '/js/lessons/lesson-paragraphs.js',
-    text: "Paragraphs"
-  },
-  {
-    source: '/pug/lesson-template.pug',
-    dest: '/public/lesson-br.html',
-    js: '/js/lessons/lesson-br.js',
-    text: "Line Breaks"
-  },
-  {
-    source: '/pug/lesson-template.pug',
-    dest: '/public/lesson-lists.html',
-    js: '/js/lessons/lesson-lists.js',
-    text: "Lists"
-  },
-  {
-    source: '/pug/lesson-template.pug',
-    dest: '/public/lesson-images.html',
-    js: '/js/lessons/lesson-images.js',
-    text: "Images"
-  },
-  {
-    source: '/pug/lesson-template.pug',
-    dest: '/public/lesson-css-colors.html',
-    js: '/js/lessons/lesson-css-colors.js',
-    text: "CSS Colors"
-  },
-  {
-    source: '/pug/lesson-template.pug',
-    dest: '/public/lesson-typography.html',
-    js: '/js/lessons/lesson-typography.js',
-    text: "Typography"
-  },
-  {
-    source: '/pug/lesson-template.pug',
-    dest: '/public/lesson-padding.html',
-    js: '/js/lessons/lesson-padding.js',
-    text: "Padding"
-  },
-  {
-    source: '/pug/lesson-template.pug',
-    dest: '/public/lesson-id-selectors.html',
-    js: '/js/lessons/lesson-id-selectors.js',
-    text: "ID Selector"
-  },
-  {
-    source: '/pug/lesson-template.pug',
-    dest: '/public/lesson-class-selectors.html',
-    js: '/js/lessons/lesson-class-selectors.js',
-    text: "Class Selector"
-  }
-];
+// Watch index.pug
+fs.watchFile(__dirname + '/pug/index.pug', (curr, prev) => {
+  const html = pug.renderFile(__dirname + '/pug/index.pug');
 
-pugFiles.forEach(file => {
-  if (file.js) {
-    file.js = fs.readFileSync(__dirname + '/public' + file.js, 'utf-8');
-  }
-
-  const html = pug.renderFile(__dirname + file.source, {
-    file: file,
-    lessons: pugFiles.slice(1)
-  });
-
-  fs.writeFile(__dirname + file.dest, html, (err) => {
+  fs.writeFile(__dirname + '/public/index.html', html, (err) => {
     if (err) throw err;
     console.log('The file has been saved!');
   });
+});
+
+
+
+
+const lessons = [
+  {
+    filename: 'lesson-headings',
+    text: "Headings"
+  },
+  {
+    filename: 'lesson-paragraphs',
+    text: "Paragraphs"
+  },
+  {
+    filename: 'lesson-br',
+    text: "Line Breaks"
+  },
+  {
+    filename: 'lesson-lists',
+    text: "Lists"
+  },
+  {
+    filename: 'lesson-images',
+    text: "Images"
+  },
+  {
+    filename: 'lesson-links',
+    text: "Links"
+  },
+  {
+    filename: 'lesson-css-colors',
+    text: "CSS Colors"
+  },
+  {
+    filename: 'lesson-typography',
+    text: "Typography"
+  },
+  {
+    filename: 'lesson-padding',
+    text: "Padding"
+  },
+  {
+    filename: 'lesson-id-selectors',
+    text: "ID Selector"
+  },
+  {
+    filename: 'lesson-class-selectors',
+    text: "Class Selector"
+  }
+];
+lessons.forEach(lesson => {
+  const filename = `${ __dirname }/public/js/lessons/${lesson.filename}.js`;
+  const dest = `${ __dirname }/public/${lesson.filename}.html`;
+
+  function render() {
+    const js = fs.readFileSync(filename, 'utf-8');
+
+    const html = pug.renderFile(__dirname + '/pug/lesson-template.pug', {
+      lessonJS: js,
+      thisLesson: lesson,
+      lessons: lessons
+    });
+
+    fs.writeFile(dest, html, (err) => {
+      if (err) throw err;
+      console.log(`${ filename } has been saved!`);
+    });
+  }
+
+  fs.watchFile(filename, (curr, prev) => {
+    render();
+  });
+
+  render();
 });

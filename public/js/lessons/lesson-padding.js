@@ -4,8 +4,8 @@ new Objectives([
 ]);
 
 editor.setCode('html',
-`<a href="http://www.thevillageschool.com">Click me</a>
-<a href="https://www.google.com">Click me too!</a>
+`<a href="http://www.slither.io">Slither</a>
+<a href="https://p5js-introduction.glitch.me">Classic Snake</a>
 `);
 
 editor.setCode('css',
