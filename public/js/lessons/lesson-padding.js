@@ -5,6 +5,27 @@ new Objectives([
 
 editor.setCode('html',
 `<a href="http://www.thevillageschool.com">Click me</a>
+<a href="https://www.google.com">Click me too!</a>
 `);
 
-editor.setTests('js/tests/test-padding.js');
+editor.setCode('css',
+`body {
+	margin: 50px;
+}
+`);
+
+editor.setTests(function () {
+	const a = document.querySelector('a');
+	let bkgColor, padding;
+
+	if (a) {
+		bkgColor = getComputedStyle(a)['background-color'];
+		padding = getComputedStyle(a)['padding'];
+	}
+
+	const origin = window.parent.location.origin;
+	window.parent.postMessage([
+		!!bkgColor && bkgColor !== 'rgba(0, 0, 0, 0)',
+		!!padding && padding === '20px'
+	], origin);
+});

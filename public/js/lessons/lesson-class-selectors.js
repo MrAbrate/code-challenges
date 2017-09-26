@@ -13,4 +13,36 @@ editor.setCode('html',
 <p>Quisque leo libero, auctor ornare eros eu, aliquam tincidunt risus. Etiam in tempus lectus. Suspendisse congue cursus nisi, ut tristique turpis sodales sit amet. Aenean at orci bibendum, interdum est quis, pharetra mi.</p>
 `);
 
-editor.setTests('js/tests/test-class-selectors.js');
+editor.setTests(function () {
+	// id selector created?
+	const allCSS =
+  [].slice.call(document.styleSheets)
+  .reduce(function (prev, styleSheet) {
+    if (styleSheet.cssRules) {
+      return prev +
+        [].slice.call(styleSheet.cssRules)
+        .reduce(function (prev, cssRule) {
+          return prev + cssRule.cssText;
+        }, '');
+    } else {
+      return prev;
+    }
+  }, '');
+
+	const classSelector = /\..*\{(\n*.*\:.*\;.*)+\n*\}/.test(allCSS);
+
+
+	// Are the first two paragraphs narrowed?
+	const pElements = document.querySelectorAll('p');
+	let dif1, dif2;
+	if (pElements.length > 2) {
+		dif1 = getComputedStyle(pElements[1])['width'] === '280px';
+		dif2 = getComputedStyle(pElements[0])['width'] === '280px';
+	}
+
+	const origin = window.parent.location.origin;
+	window.parent.postMessage([
+		classSelector,
+		dif1 && dif2
+	], origin)
+});

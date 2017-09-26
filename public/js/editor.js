@@ -130,13 +130,19 @@ function TextEditor(id) {
 
 	  const doc = iframe.contentDocument || iframe.contentWindow.document;
 
-		const code = `
+		let code = `
 	    <style>${ codeCache.css }</style>
 	    ${ codeCache.html }
 			<script src="js/p5.min.js"></script>
 			<script>${ codeCache.javascript }</script>
-			<script src="${ tests }"></script>
 		`;
+
+		if (typeof tests === 'function') {
+			code += `<script>const test = ${ tests.toString() }; test(); </script>`;
+		} else if (typeof tests === 'string') {
+			code += `<script src="${ tests }"></script>`;
+		}
+
 		doc.open();
 		doc.write(code);
 		doc.close();
@@ -162,9 +168,9 @@ function TextEditor(id) {
 
 
 
-	let tests = '';
-	this.setTests = function (url) {
-		tests = url;
+	let tests;
+	this.setTests = function (urlOrFunc) {
+		tests = urlOrFunc;
 	}
 
 
