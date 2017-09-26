@@ -1,7 +1,7 @@
 new Objectives([
 	'Add <code>&ltp&gt;</code> tags around the paragraphs under the HTML tab.',
-	'Change the background color of the <code>&ltp&gt;</code> elements using CSS.',
-	'Change the text color of the <code>&ltp&gt;</code> elements using CSS.'
+	'Change the <code>background-color</code> property of the <code>&ltp&gt;</code> elements using CSS.',
+	'Change the <code>color</code> property of the <code>&ltp&gt;</code> elements.'
 ]);
 
 editor.setCode('html',

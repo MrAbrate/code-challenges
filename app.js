@@ -51,6 +51,12 @@ const pugFiles = [
   },
   {
     source: '/pug/lesson-template.pug',
+    dest: '/public/lesson-padding.html',
+    js: '/js/lessons/lesson-padding.js',
+    text: "Padding"
+  },
+  {
+    source: '/pug/lesson-template.pug',
     dest: '/public/lesson-id-selectors.html',
     js: '/js/lessons/lesson-id-selectors.js',
     text: "ID Selector"

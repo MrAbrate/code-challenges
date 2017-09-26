@@ -26,13 +26,13 @@ function test() {
 
 
 
-
+	const origin = window.parent.location.origin;
 	window.parent.postMessage([
 		importDeclared,
 		pSelected,
 		fontFamily.includes('Lato, sans-serif'),
 		fontSize === '24px'
-	], "*")
+	], origin)
 }
 
 test();

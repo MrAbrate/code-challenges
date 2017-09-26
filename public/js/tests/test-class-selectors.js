@@ -25,10 +25,11 @@ function test() {
 		dif2 = getComputedStyle(pElements[0])['width'] === '280px';
 	}
 
+	const origin = window.parent.location.origin;
 	window.parent.postMessage([
 		classSelector,
 		dif1 && dif2
-	], "*")
+	], origin)
 }
 
 test();

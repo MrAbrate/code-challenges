@@ -24,11 +24,12 @@ function test() {
 	// Is there an h2
 	const h2 = document.querySelector('h2');
 
+	const origin = window.parent.location.origin;
 	window.parent.postMessage([
 		listExists,
 		(liCount >= 5) && !emptyListItems,
 		!!h2 && !!h2.innerHTML
-	], "*")
+	], origin)
 }
 
 test();

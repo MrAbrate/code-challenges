@@ -134,7 +134,7 @@ function TextEditor(id) {
 	    <style>${ codeCache.css }</style>
 	    ${ codeCache.html }
 			<script src="js/p5.min.js"></script>
-			<script>${ codeCache.js }</script>
+			<script>${ codeCache.javascript }</script>
 			<script src="${ tests }"></script>
 		`;
 		doc.open();

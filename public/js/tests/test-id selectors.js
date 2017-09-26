@@ -28,11 +28,12 @@ function test() {
 		dif2 = getComputedStyle(pElements[0])['font-size'] !== getComputedStyle(pElements[pElements.length - 1])['font-size'];
 	}
 
+	const origin = window.parent.location.origin;
 	window.parent.postMessage([
 		idSelector,
 		!!id1 && dif1,
 		!!id2 && dif2
-	], "*")
+	], origin)
 }
 
 test();

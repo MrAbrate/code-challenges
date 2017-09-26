@@ -6,6 +6,7 @@ function test() {
 	const h5 = document.querySelector('h5');
 	const h6 = document.querySelector('h6');
 
+	const origin = window.parent.location.origin;
 	window.parent.postMessage([
 		!!h1 && !!h1.innerHTML,
 		!!h2 && !!h2.innerHTML,
@@ -13,7 +14,7 @@ function test() {
 		!!h4 && !!h4.innerHTML,
 		!!h5 && !!h5.innerHTML,
 		!!h6 && !!h6.innerHTML
-	], "*")
+	], origin)
 }
 
 test();

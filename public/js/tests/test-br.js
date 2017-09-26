@@ -13,10 +13,11 @@ function test() {
 		/broken,\s*<br>/.test(p.innerHTML),
 		/king.\s*<br>/.test(p.innerHTML),
 	];
-
+	
+	const origin = window.parent.location.origin;
 	window.parent.postMessage([
 		!breaks.includes(false)
-	], "*")
+	], origin)
 }
 
 test();

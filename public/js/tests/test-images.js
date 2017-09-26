@@ -8,11 +8,11 @@ function test() {
 		console.log(src);
 	}
 
-
+	const origin = window.parent.location.origin;
 	window.parent.postMessage([
 		!!img,
 		src && src.indexOf('https://media.giphy.com/media/qPuhFBQt8xLEY/giphy.gif') !== -1
-	], "*")
+	], origin)
 }
 
 test();
