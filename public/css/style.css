@@ -21,7 +21,7 @@ code {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	background: rgba(0, 0, 0, 0.7);
+	background: rgba(0, 0, 0, 0.9);
 	color: white;
 	padding: 10px 30px;
 }
@@ -78,7 +78,8 @@ code {
 		display: flex;
 	}
 	.sidebar {
-		max-width: 300px;
+		flex: 1;
+		max-width: 320px;
 		min-height: 100vh;
 		display: block;
 	}

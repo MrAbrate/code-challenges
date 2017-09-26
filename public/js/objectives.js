@@ -26,3 +26,11 @@ function Objectives(objectiveList) {
 			});
 	}
 }
+
+(function () {
+	const links = document.querySelectorAll('.dropdown-content > a');
+	const step = 360 / links.length;
+	for (let i = 0; i < links.length; i += 1) {
+		links[i].style.color = "hsl(" + (0 + step * i) + ", 100%, 70%)"
+	}
+})();
