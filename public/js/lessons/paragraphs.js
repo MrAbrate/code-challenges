@@ -27,11 +27,11 @@ editor.setTests(function () {
 	// Quotes wrapped in paragraps?
 	const pElements = document.querySelectorAll('p');
 
-	const quoteOne = pSearch(/secret of getting.*\n*.*Mark Twain/);
-	const quoteTwo = pSearch(/learned that people.*\n*.*Maya Angelou/);
-	const quoteThree = pSearch(/fool doth think he is wise.*\n*.*William Shakespeare/);
+	const quoteOne = pSearch(/secret of getting[\s\S]*Mark Twain/);
+	const quoteTwo = pSearch(/learned that people[\s\S]*Maya Angelou/);
+	const quoteThree = pSearch(/fool doth think he is wise[\s\S]*William Shakespeare/);
 
-	function quotesCorrent() {
+	function oneParagraphPerQuote() {
 		pElements.length < 3;
 
 		if (quoteOne === -1 || quoteTwo === -1 || quoteThree === -1) {
@@ -56,6 +56,6 @@ editor.setTests(function () {
 	const origin = window.parent.location.origin;
 	window.parent.postMessage([
 		!!h1 && h1Text,
-		quotesCorrent()
+		oneParagraphPerQuote()
 	], origin)
 });
