@@ -1,65 +1,66 @@
 const pug = require('pug');
 const fs = require('fs');
 
+
+const lessons = (function () {
+	const files = [
+		'headings.js',
+		'paragraphs.js',
+		'line-breaks.js',
+		'lists.js',
+		'images.js',
+		'links.js',
+		'css-colors.js',
+		'typography.js',
+		'padding.js',
+	  'id-selectors.js',
+		'class-selectors.js',
+	];
+
+	return files.map(filename => {
+      filename = filename.replace('.js', '');
+			const output = {
+				filename: filename,
+        text: formatText(filename)
+			}
+			return output;
+
+			function formatText(str) {
+				const words = str.split('-');
+				const capitalized = words.map(word => {
+					if (word === 'id' ||
+							word === 'html' ||
+							word === 'css' ||
+							word === 'js') {
+						return word.toUpperCase();
+					} else {
+						return word[0].toUpperCase() + word.slice(1);
+					}
+				});
+				return capitalized.join(' ');
+			}
+	});
+})();
+
 // Watch index.pug
-fs.watchFile(__dirname + '/pug/index.pug', (curr, prev) => {
-  const html = pug.renderFile(__dirname + '/pug/index.pug');
+function renderIndex() {
+  const html = pug.renderFile(__dirname + '/pug/index.pug', {
+    lessons: lessons
+  });
 
   fs.writeFile(__dirname + '/public/index.html', html, (err) => {
     if (err) throw err;
     console.log('The file has been saved!');
   });
+}
+
+renderIndex();
+
+fs.watchFile(__dirname + '/pug/index.pug', (curr, prev) => {
+  renderIndex();
 });
 
 
-
-
-const lessons = [
-  {
-    filename: 'lesson-headings',
-    text: "Headings"
-  },
-  {
-    filename: 'lesson-paragraphs',
-    text: "Paragraphs"
-  },
-  {
-    filename: 'lesson-br',
-    text: "Line Breaks"
-  },
-  {
-    filename: 'lesson-lists',
-    text: "Lists"
-  },
-  {
-    filename: 'lesson-images',
-    text: "Images"
-  },
-  {
-    filename: 'lesson-links',
-    text: "Links"
-  },
-  {
-    filename: 'lesson-css-colors',
-    text: "CSS Colors"
-  },
-  {
-    filename: 'lesson-typography',
-    text: "Typography"
-  },
-  {
-    filename: 'lesson-padding',
-    text: "Padding"
-  },
-  {
-    filename: 'lesson-id-selectors',
-    text: "ID Selector"
-  },
-  {
-    filename: 'lesson-class-selectors',
-    text: "Class Selector"
-  }
-];
 lessons.forEach(lesson => {
   const filename = `${ __dirname }/public/js/lessons/${lesson.filename}.js`;
   const dest = `${ __dirname }/public/${lesson.filename}.html`;
