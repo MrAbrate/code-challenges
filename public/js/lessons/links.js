@@ -7,7 +7,7 @@ editor.setTests(function () {
 	const aElements = document.querySelectorAll('a');
 	let play = false;
 	for (let i = 0; i < aElements.length; i += 1) {
-		if (aElements[i].innerHTML === "Play") {
+		if (aElements[i].innerHTML.includes("Play")) {
 			play = true;
 			break;
 		}

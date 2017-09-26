@@ -29,6 +29,7 @@ function TextEditor(id) {
 
 	const editor = ace.edit(editorWindow);
 	editor.setTheme("ace/theme/monokai");
+	editor.setBehavioursEnabled(false);
 
 	const session = editor.getSession();
 	session.setMode("ace/mode/" + currentLang);

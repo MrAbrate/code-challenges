@@ -15,6 +15,7 @@ const lessons = (function () {
 		'padding.js',
 	  'id-selectors.js',
 		'class-selectors.js',
+		'layout-basics.js'
 	];
 
 	return files.map(filename => {
