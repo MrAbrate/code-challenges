@@ -62,6 +62,27 @@ fs.watchFile(__dirname + '/pug/index.pug', (curr, prev) => {
 });
 
 
+// Watch p5.pug
+function renderP5() {
+  const html = pug.renderFile(__dirname + '/pug/p5.pug', {
+    lessons: lessons
+  });
+
+  fs.writeFile(__dirname + '/public/p5.html', html, (err) => {
+    if (err) throw err;
+    console.log('The file has been saved!');
+  });
+}
+
+renderP5();
+
+fs.watchFile(__dirname + '/pug/p5.pug', (curr, prev) => {
+  renderP5();
+});
+
+
+
+
 lessons.forEach(lesson => {
   const filename = `${ __dirname }/public/js/lessons/${lesson.filename}.js`;
   const dest = `${ __dirname }/public/${lesson.filename}.html`;
