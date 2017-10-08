@@ -16,7 +16,8 @@ const lessons = (function () {
 	  'id-selectors.js',
 		'class-selectors.js',
 		'layout-basics.js',
-		'p5-drawing.js'
+		'p5-ellipse.js',
+		'p5-draw-something.js'
 	];
 
 	return files.map(filename => {

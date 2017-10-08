@@ -1,3 +1,6 @@
+
+document.querySelector('.tab[data-target="javascript"]').click();
+
 new Objectives([
 	'Call the ellipse() function inside the draw() function.'
 ]);
