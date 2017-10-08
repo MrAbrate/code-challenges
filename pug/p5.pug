@@ -5,17 +5,20 @@ html
 		.container
 			include inc/sidebar.pug
 			.content
-				h1 P5.JS Playground
-				ol
-					li
-						a(href='https://youtu.be/9mucjcrhFcM') The Coding Train Videos
-					li
-						a(href='https://codepen.io/villagecoding/pen/YVjEQM') Blank Canvas
-					li
-						a(href='https://codepen.io/villagecoding/pen/dVzwwp') Add Color
-					li
-						a(href='https://codepen.io/villagecoding/pen/VMzRbq') Built in Variables
-					li
-						a(href='https://codepen.io/villagecoding/pen/veJPPB') Make Your Own Variables
+				h2 P5.JS Starter Projects
+				.link-boxes
+					.link-box
+						h3 CodePen.io Examples
+						ol
+							li: a(href='https://codepen.io/villagecoding/pen/YVjEQM' target="_blank") Blank Canvas
+							li: a(href='https://codepen.io/villagecoding/pen/dVzwwp' target="_blank") Add Color
+							li: a(href='https://codepen.io/villagecoding/pen/VMzRbq' target="_blank") Built in Variables
+							li: a(href='https://codepen.io/villagecoding/pen/veJPPB' target="_blank") Make Your Own Variables
+					
+					.link-box
+						h3 Games
+						ol
+							li: a(href='/sketches/snake' target="_blank") Snake
+							li: a(href='/sketches/tetris' target="_blank") Tetris
 					
 		

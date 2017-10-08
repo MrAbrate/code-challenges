@@ -15,31 +15,28 @@ const lessons = (function () {
 		'padding.js',
 	  'id-selectors.js',
 		'class-selectors.js',
-		'layout-basics.js'
+		'layout-basics.js',
+		'p5-drawing.js'
 	];
 
 	return files.map(filename => {
-      filename = filename.replace('.js', '');
-			const output = {
-				filename: filename,
-        text: formatText(filename)
+    const name = filename.replace('.js', '');
+		const forHumans = name.split('-')
+		.map(word => {
+			if (word === 'id' ||
+					word === 'html' ||
+					word === 'css' ||
+					word === 'js') {
+				return word.toUpperCase();
 			}
-			return output;
+			return word[0].toUpperCase() + word.slice(1);
+		})
+		.join(' ');
 
-			function formatText(str) {
-				const words = str.split('-');
-				const capitalized = words.map(word => {
-					if (word === 'id' ||
-							word === 'html' ||
-							word === 'css' ||
-							word === 'js') {
-						return word.toUpperCase();
-					} else {
-						return word[0].toUpperCase() + word.slice(1);
-					}
-				});
-				return capitalized.join(' ');
-			}
+		return {
+			filename: name,
+			text: forHumans
+		};
 	});
 })();
 

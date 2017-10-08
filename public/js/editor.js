@@ -135,7 +135,6 @@ function TextEditor(id) {
 	    <style>${ codeCache.css }</style>
 	    ${ codeCache.html }
 			<script src="js/p5.min.js"></script>
-			<script>${ codeCache.javascript }</script>
 		`;
 
 		if (typeof tests === 'function') {
@@ -143,6 +142,10 @@ function TextEditor(id) {
 		} else if (typeof tests === 'string') {
 			code += `<script src="${ tests }"></script>`;
 		}
+
+		code += ` <script>${ codeCache.javascript }</script>`;
+
+
 
 		doc.open();
 		doc.write(code);

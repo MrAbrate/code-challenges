@@ -18,6 +18,10 @@ ol > li {
 	margin-bottom: 20px;
 }
 
+h2 {
+	text-align: center;
+}
+
 .container {
 }
 
@@ -62,7 +66,7 @@ ol > li {
 	color: #444;
 	display: block;
 	padding: 12px 0;
-	font-size: 1.4rem;
+	font-size: 1.2rem;
 }
 .dropdown-content a:hover,
 .dropdown-content a.active {
@@ -83,7 +87,7 @@ ol > li {
 	}
 	.sidebar {
 		flex: 1;
-		max-width: 320px;
+		max-width: 228px;
 		min-height: 100vh;
 		display: block;
 	}
@@ -205,7 +209,7 @@ ol > li {
 	align-items: flex-start;
 }
 #objectives > li.passed {
-	border-top: 2px solid green;
+	border-top: 2px solid #0A0;
 }
 
 .list-number {
@@ -220,8 +224,24 @@ ol > li {
 }
 
 #objectives > li.passed > .list-number {
-	background: green;
+	background: #0A0;
 }
 
-.objective-list-item {
+
+.link-boxes {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.link-box {
+	flex-basis: 280px;
+	border: 2px solid #666;
+	border-radius: 6px;
+	margin: 20px;
+	padding: 20px;
+}
+
+.link-box > h3 {
+	text-align: center;
 }
