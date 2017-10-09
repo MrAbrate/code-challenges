@@ -113,10 +113,65 @@ function TextEditor(id) {
 		return tab;
 	}
 
+	const hiddenFileInput = document.createElement('input');
+	hiddenFileInput.setAttribute('type', 'file');
+	hiddenFileInput.style.display = 'none';
+	const that = this;
+
+	hiddenFileInput.onchange = function(evt) {
+	    if(!window.FileReader) return; // Browser is not compatible
+
+	    var reader = new FileReader();
+
+	    reader.onload = function(evt) {
+	        if(evt.target.readyState != 2) return;
+	        if(evt.target.error) {
+	            alert('Error while reading file');
+	            return;
+	        }
+
+	        filecontent = evt.target.result;
+					console.log(filecontent);
+
+
+				  const doc = document.implementation.createHTMLDocument();
+					doc.documentElement.innerHTML = filecontent;
+
+					let html = doc.querySelector('body').innerHTML;
+					let styles = doc.querySelector('style').innerHTML;
+					let scripts = doc.querySelectorAll('script')[1].innerHTML;
+
+					console.log(html, styles, scripts)
+
+					that.setCode('html', html);
+					that.setCode('css', styles);
+					that.setCode('javascript', scripts);
+
+					document.querySelector('.tab[data-target="preview-window"]').click();
+
+	    };
+
+	    reader.readAsText(evt.target.files[0]);
+	};
+	wrapper.appendChild(hiddenFileInput);
+
+	const fileWrapper = document.createElement('div');
+	fileWrapper.setAttribute('id', 'file-wrapper');
+
 	const dlButton = document.createElement('button');
+	const ulButton = document.createElement('button');
+
 	dlButton.innerHTML = "Download your code";
+	ulButton.innerHTML = "Upload File";
+
 	dlButton.onclick = downloadText;
-	wrapper.appendChild(dlButton);
+	ulButton.onclick = function () { hiddenFileInput.click();};
+
+	fileWrapper.appendChild(dlButton);
+	fileWrapper.appendChild(ulButton);
+
+	wrapper.appendChild(fileWrapper);
+
 
 
 
@@ -132,8 +187,8 @@ function TextEditor(id) {
 	  const doc = iframe.contentDocument || iframe.contentWindow.document;
 
 		let code = `
+			<head>
 	    <style>${ codeCache.css }</style>
-	    ${ codeCache.html }
 			<script src="js/p5.min.js"></script>
 		`;
 
@@ -143,7 +198,10 @@ function TextEditor(id) {
 			code += `<script src="${ tests }"></script>`;
 		}
 
-		code += ` <script>${ codeCache.javascript }</script>`;
+		code += `<script>${ codeCache.javascript }</script>
+		</head>
+		<body>${ codeCache.html }</body>
+		`;
 
 
 
@@ -156,10 +214,14 @@ function TextEditor(id) {
 		console.log('downloading');
 		document.querySelector('.tab[data-target="preview-window"]').click();
 		const code = `
+			<html>
+			<head>
 	    <style>${ codeCache.css }</style>
-	    ${ codeCache.html }
 			<script src="js/p5.min.js"></script>
-			<script>${ codeCache.js }</script>
+			<script>${ codeCache.javascript }</script>
+			</head>
+			<body>${ codeCache.html }</body>
+			</html>
 		`;
 
 	  var dl = document.createElement('a');

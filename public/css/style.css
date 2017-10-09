@@ -140,12 +140,26 @@ h2 {
 #editor button {
 	padding: 10px;
 	background: orange;
-	border: none;
+	border-top: none;
+	border-bottom: none;
+	border-right: none;
+	border-left: 3px solid #444;
 	font-size: 1.2rem;
+}
+
+#editor button:first-child {
+	border: none;
 }
 #editor button:hover {
 	background: DarkOrange;
 	cursor: pointer;
+}
+
+#file-wrapper {
+	display: flex;
+}
+#file-wrapper > button {
+	flex: 1;
 }
 
 .tab-wrapper {
