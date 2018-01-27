@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+      #editor {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="editor"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.9/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyC8kFozdOeYR2PGQE0DKAxGj2D-w0WB2WQ",
+        authDomain: "code-fountain.firebaseapp.com",
+        databaseURL: "https://code-fountain.firebaseio.com",
+        projectId: "code-fountain",
+        storageBucket: "code-fountain.appspot.com",
+        messagingSenderId: "623370118379"
+      };
+      firebase.initializeApp(config);
+    </script>
+    <script>
+      var database = firebase.database();
+      var hash = window.location.hash;
+      var projectRef;
+      var key;
+      var applyingDeltas = false;
+      var loadTime = Date.now();
+
+
+      var editor = ace.edit("editor");
+      editor.setTheme("ace/theme/monokai");
+      editor.session.setMode("ace/mode/html");
+      var doc = editor.getSession().getDocument();
+
+      if (!hash) {
+        projectRef = database.ref('projects').push();
+        key = projectRef.key;
+        console.log(key);
+
+        var initialData = {
+          'activeUsers': 0,
+          'created': new Date(),
+          'filename': 'index.html',
+          'content': ''
+        };
+
+        database.ref('projects/' + key).set(initialData);
+        window.location.hash = '#' + key;
+
+      } else {
+        key = hash.slice(1);
+        projectRef = database.ref('projects/' + key);
+
+        console.log('already got a hash')
+        console.log(key);
+      }
+
+      projectRef.once('value', function (snap) {
+        var value = snap.val();
+        var lastSavedVersion = (value.content) ? value.content : '';
+        editor.setValue(lastSavedVersion);
+
+        editor.on('change', function (e) {
+          if (applyingDeltas) {
+            console.log('ignore');
+            return;
+          }
+
+          // Set the content in the editor object
+          // This is being used for new users, not for already-joined users.
+          projectRef.update({
+            content: editor.getValue()
+          });
+
+          projectRef.child('changes').push({
+            timestamp: Date.now(),
+            e: e,
+            uid: userRef.key
+          }).catch(function(e) {
+            console.error(e);
+          });
+        });
+      });
+
+      var userRef = projectRef.child('activeUsers').push();
+
+      projectRef.on("value", function(snap) {
+        if (snap.val()) {
+          // Remove ourselves when we disconnect.
+          userRef.onDisconnect().remove();
+
+          userRef.set(true);
+        }
+      });
+
+      projectRef.child('activeUsers').on("value", function(snap) {
+        console.log("# of online users = " + snap.numChildren());
+      });
+
+
+
+
+
+      projectRef.child('changes').on('child_added', function (snap) {
+        var value = snap.val();
+
+        var timestamp = value.timestamp;
+
+        // Do not apply changes from the past
+        if (loadTime > timestamp) {
+          if (loadTime > timestamp + 30 * 60 * 1000) {
+            projectRef.child('changes/' + snap.key).remove();
+          }
+          return;
+        }
+
+        // Ignore my own edits
+        if (value.uid === userRef.key) {
+          return;
+        }
+
+        console.log('relevant change made')
+        // We're going to apply the changes by somebody else in our editor
+        //  1. We turn applyingDeltas on
+        applyingDeltas = true;
+        //  2. Update the editor value with the event data
+        doc.applyDeltas([value.e]);
+        console.log(value.e);
+        //  3. Turn off the applyingDeltas
+        applyingDeltas = false;
+      })
+    </script>
+  </body>
+</html>
